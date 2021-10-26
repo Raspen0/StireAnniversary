@@ -1,6 +1,7 @@
 package nl.raspen0.stireanniversary;
 
 import net.ess3.api.events.UserBalanceUpdateEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -89,12 +90,16 @@ public class AnniversaryWorldListener implements Listener {
 
     @EventHandler
     private void playerJoin(PlayerJoinEvent event){
-        plugin.getSALogger().log(Logger.LogType.DEBUG, "Loading playerdata for " + event.getPlayer().getName());
-        if(plugin.isAnniversaryWorld(event.getPlayer().getWorld().getName())){
+        playerJoin(event.getPlayer());
+    }
+
+    public void playerJoin(Player player){
+        plugin.getSALogger().log(Logger.LogType.DEBUG, "Loading playerdata for " + player.getName());
+        if(plugin.isAnniversaryWorld(player.getWorld().getName())){
             plugin.getSALogger().log(Logger.LogType.DEBUG, "Is anniversary world.");
-            addPlayer(event.getPlayer().getUniqueId());
+            addPlayer(player.getUniqueId());
         }
-        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> plugin.loadPlayer(event.getPlayer().getUniqueId()));
+        plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> plugin.loadPlayer(player.getUniqueId()));
     }
 
     @EventHandler

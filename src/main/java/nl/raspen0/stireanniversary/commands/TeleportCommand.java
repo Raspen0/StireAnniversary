@@ -59,6 +59,11 @@ public class TeleportCommand implements TabExecutor {
         //sa_teleport base <baseName/ID> <@target>
         Player target;
 
+        if(args.length < 2){
+            sender.sendMessage(StringList.NOT_ENOUGH_ARGS.get(lang));
+            return;
+        }
+
         if(args.length < 3){
             if(!(sender instanceof Player player)){
                 sender.sendMessage(StringList.ONLY_PLAYER.get(lang));

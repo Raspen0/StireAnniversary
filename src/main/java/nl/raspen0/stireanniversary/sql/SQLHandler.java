@@ -131,7 +131,7 @@ public class SQLHandler {
                 BaseType baseType = BaseType.valueOf(res.getString("type"));
 
                 if(Bukkit.getWorld(world) == null){
-                    plugin.getSALogger().log(Logger.LogType.ERROR, "Error processing base for missing world: " + world);
+                    plugin.getSALogger().log(Logger.LogType.WARNING, "Skipping base " + res.getInt("id") + " due to missing world: " + world);
                     continue;
                 }
 

@@ -5,6 +5,7 @@ import nl.raspen0.stireanniversary.commands.ImportCommand;
 import nl.raspen0.stireanniversary.commands.TeleportCommand;
 import nl.raspen0.stireanniversary.sql.SQLHandler;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -34,7 +35,16 @@ public final class StireAnniversary extends JavaPlugin {
 
         if(getConfig().getBoolean("teleportCommands", false)){
             loadBases();
-            getServer().getPluginManager().registerEvents(new AnniversaryWorldListener(this),  this);
+            AnniversaryWorldListener worldListener = new AnniversaryWorldListener(this);
+            getServer().getPluginManager().registerEvents(worldListener,  this);
+
+            //Is plugin was enabled or reloaded using PlugMan.
+            if(getServer().getOnlinePlayers().size() > 0){
+                for(Player p : getServer().getOnlinePlayers()){
+                    worldListener.playerJoin(p);
+                }
+            }
+
             if(!getServer().getPluginManager().isPluginEnabled("StireTweaks")){
                 getSALogger().log(Logger.LogType.ERROR, "StireTweaks not found, cannnot enable teleport commands.");
             } else {
@@ -92,26 +102,24 @@ public final class StireAnniversary extends JavaPlugin {
             System.out.println(base.getLocation());
 
             if(!base.getBaseType().equals(baseType)){
-                System.out.println("Incorrect base type");
+                getSALogger().log(Logger.LogType.DEBUG, "Incorrect base type.");
                 continue;
             }
 
             if(!isAnniversaryWorld(world.getName())){
-                System.out.println(world.getName() + " is not a anniversary world.");
+                getSALogger().log(Logger.LogType.DEBUG, world.getName() + " is not a anniversary world.");
                 continue;
             }
 
             int id = getAnniversaryWorldID(world.getName());
 
-            System.out.println("ID: " + id);
-
             for(Map.Entry<String, Integer> e : anniversaryWorlds.entrySet()){
                 if(e.getValue() != id){
-                    System.out.println("ID mismatch: " + id + " - " + e.getValue());
+                    getSALogger().log(Logger.LogType.DEBUG, "ID mismatch: " + id + " - " + e.getValue());
                     continue;
                 }
                 if(!base.getLocation().getWorld().getName().equals(world.getName())){
-                    System.out.println("World mismatch: " + base.getLocation().getWorld().getName() + " - " + world.getName());
+                    getSALogger().log(Logger.LogType.DEBUG, "World mismatch: " + base.getLocation().getWorld().getName() + " - " + world.getName());
                     continue;
                 }
                 return base;
