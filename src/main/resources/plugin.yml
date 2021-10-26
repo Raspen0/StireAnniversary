@@ -1,0 +1,19 @@
+name: StireAnniversary
+version: '${project.version}'
+main: nl.raspen0.stireanniversary.StireAnniversary
+api-version: 1.17
+authors: [ raspen0 ]
+description: Plugin that manages the features for the 10th anniversary of Stirebuild.
+softdepend:
+  - Essentials
+  - StireTweaks
+commands:
+  sa_home:
+    description: Teleports player to their base in the current anniversary world.
+    usage: /sa_home
+  sa_teleport:
+    description: Teleports the target player to the given base.
+    usage: /sa_teleport <base name / base ID> <target>
+  sa_import:
+    description: Imports base data from other plugins.
+    usage: /sa_import

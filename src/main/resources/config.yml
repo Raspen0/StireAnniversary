@@ -1,0 +1,23 @@
+importCommand: true
+teleportCommands: false
+
+anniversaryWorlds:
+   1:
+      - world1
+      - desert
+   2:
+      - worldv2
+
+SQL:
+  host: localhost
+  port: 3306
+  database: local
+  username: local
+  password: test
+  minimumConnections: 1
+  maximumConnections: 2
+  connectionTimeout: 10000
+
+
+debug:
+  logging: false
