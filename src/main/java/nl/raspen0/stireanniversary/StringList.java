@@ -69,6 +69,13 @@ public enum StringList {
             "On the original server this command was used for the PvP Arena.",
             ChatColor.AQUA + "Op de originele server werd dit commando gebruikt voor de PvP arena."),
 
+    COMMAND_REPLACEMENT_SKYBLOCK_SHOP(ChatColor.BLUE + "On the original server with this command you could open the Skyblock shop. " +
+            "Here you could buy items to help you such as saplings and extra dirt. This disappeared because Skyblock was " +
+            "removed due almost never being played.",
+            ChatColor.BLUE + "Op de originele server kon je met dit commando de Skyblock winkel openen. " +
+                    "Hier kon je blokken kopen die je konden helpen zoals kiemplanten (saplings) extra aarde. " +
+                    "Dit verdween doordat Skyblock was weggehaald omdat bijna niemand het speelde.")
+
     ;
 
     String english;

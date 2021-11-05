@@ -42,3 +42,6 @@ commands:
   pa:
     description: Replacement command for the original PvPArena command.
     usage: /pa
+  shop:
+    description: Replacement command for the original BossShop command.
+    usage: /shop

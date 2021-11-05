@@ -51,6 +51,7 @@ public final class StireAnniversary extends JavaPlugin {
         getCommand("ar").setExecutor(new RankCommand());
         getCommand("calladmin").setExecutor(new CallAdminCommand());
         getCommand("pa").setExecutor(new PACommand());
+        getCommand("shop").setExecutor(new ShopCommand());
 
         if(getConfig().getBoolean("teleportCommands", false)){
             loadBases();
