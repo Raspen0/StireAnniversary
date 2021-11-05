@@ -120,6 +120,7 @@ public class SQLHandler {
             ps = conn.prepareStatement("SELECT * FROM sa_bases");
             res = ps.executeQuery();
             while (res.next()) {
+                int baseID = res.getInt("id");
                 int anniversaryWorldID = res.getInt("anniversary_world_id");
                 double x = res.getDouble("x");
                 double y = res.getDouble("y");
@@ -135,7 +136,7 @@ public class SQLHandler {
                     continue;
                 }
 
-                Base base = new Base(new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch), name, baseType, anniversaryWorldID);
+                Base base = new Base(new Location(Bukkit.getWorld(world), x, y, z, yaw, pitch), name, baseType, baseID, anniversaryWorldID);
                 map.put(res.getInt("id"), base);
             }
         } catch (SQLException e) {
@@ -174,5 +175,9 @@ public class SQLHandler {
 
     private String formatUUIDForSQL(String UUID){
         return UUID.replace("-", "");
+    }
+
+    public void closeConnection(){
+        pool.closePool();
     }
 }

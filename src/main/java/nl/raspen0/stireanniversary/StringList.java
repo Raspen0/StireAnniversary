@@ -21,13 +21,53 @@ public enum StringList {
     TELEPORTED_OTHER( ChatColor.GREEN + " has been teleported.", ChatColor.GREEN + " is geteleporteed."),
     TELEPORT_INVALID_TYPE(ChatColor.RED + "Invalid teleport type (base/player)", ChatColor.RED + "Ongeldig teleportatie type (base/player)"),
 
+    TELEPORT_RETURN_GLOBAL_SPAWN(ChatColor.AQUA + "To return to the server spawn, use: " + ChatColor.YELLOW + "/spawn" + ChatColor.AQUA + ".",
+            ChatColor.AQUA + "Om terug te gaan naar het server spawn, gebruik: " + ChatColor.YELLOW + "/spawn" + ChatColor.AQUA + "."),
+    TELEPORT_RETURN_LOCAL_SPAWN(ChatColor.AQUA + "To return to the spawn of this world, use: " + ChatColor.YELLOW + "/sa_spawn" + ChatColor.AQUA + ".",
+            ChatColor.AQUA + "Om terug te gaan naar het spawn van deze wereld, gebruik: " + ChatColor.YELLOW + "/sa_spawn" + ChatColor.AQUA + "."),
+
     BASE_TELEPORT_MESSAGE_NAME(ChatColor.AQUA + "Welcome to " + ChatColor.YELLOW + "{0}" + ChatColor.AQUA + ".",
             ChatColor.AQUA + "Welkom bij " + ChatColor.YELLOW + "{0}" + ChatColor.AQUA + "."),
     BASE_TELEPORT_MESSAGE_NO_NAME(ChatColor.AQUA + "Welcome to your " + ChatColor.YELLOW + "{0}" + ChatColor.AQUA + ".",
             ChatColor.AQUA + "Welkom bij je " + ChatColor.YELLOW + "{0}" + ChatColor.AQUA + "."),
 
+    SPAWN_COMMAND_INCORRECT_WORLD(ChatColor.RED + "You are currently not in a anniversary world.",
+            ChatColor.RED + "Je bent op het moment niet in een jubileum wereld."),
+
     FACTION("faction"),
     TOWN("town", "dorp"),
+
+    COMMAND_REPLACEMENT_LANGUAGE(ChatColor.AQUA +
+            "On the original server this command would have changed your language, just like /lang does now.",
+            ChatColor.AQUA + "Op de originele server veranderde dit commando je taal, net zoals /lang dat nu doet."),
+
+    COMMAND_REPLACEMENT_ISLAND(ChatColor.AQUA +
+            "On the original server this command would be used to access your SkyBlock island. This feature was sadly " +
+            "removed due to people not really using it.",
+                                 ChatColor.AQUA + "Op de originele server werd dit command gebruikt om bij je SkyBlock eiland te komen." +
+                                         "Skyblock is hellaas weggehaald omdat bijna niemand het gebruikte."),
+
+    COMMAND_REPLACEMENT_RANK(ChatColor.AQUA +
+            "On the original server this command would be used to check your playtime and how would have until you ranked up. " +
+            "This is now handled by /playtime. Back then we used the AutoRank plugin, but due to alot of issues with playtime counting we switched to " +
+            "a custom made plugin.",
+            ChatColor.AQUA + "Op de originele server werd dit command gebruikt om je speeltijd na te kijken en te zien wanneer je rank omhoog gaat. " +
+                    "Dit wordt nu gedaan door /playtime. In die tijd gebruikten we de AutoRank plugin, maar door veel problemen met het tellen van de speeltijd " +
+                    "zijn we overgegaan naar een zelfgemaakte plugin."),
+
+    COMMAND_REPLACEMENT_SURVEY(ChatColor.AQUA +
+            "There is currently no survey.",
+            ChatColor.AQUA + "Er is op het moment geen enquete."),
+
+    COMMAND_REPLACEMENT_CALLADMIN(ChatColor.AQUA +
+            "On the original server this command would send a mobile notification to me (raspen0). " +
+            "This was removed due to the app not being updated.",
+            ChatColor.AQUA + "Op de originele server werd dit commando gebruikt om mobiele notitifacties naar mij (raspen0) te sturen. " +
+                    "Dit was weggehaald omdat de app niet meer geupdate werd."),
+
+    COMMAND_REPLACEMENT_PVP(ChatColor.AQUA +
+            "On the original server this command was used for the PvP Arena.",
+            ChatColor.AQUA + "Op de originele server werd dit commando gebruikt voor de PvP arena."),
 
     ;
 

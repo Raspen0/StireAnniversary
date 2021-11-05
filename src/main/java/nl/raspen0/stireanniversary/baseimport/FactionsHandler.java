@@ -60,7 +60,7 @@ public class FactionsHandler extends BaseImportHandler {
                 continue;
             }
 
-            Base base = new Base(factionSpawnLocation, faction.getName(), BaseType.FACTION, anniversaryWorldID);
+            Base base = new Base(factionSpawnLocation, faction.getName(), BaseType.FACTION, -1, anniversaryWorldID);
 
             for (MPlayer player : faction.getMPlayers()) {
                 UUID uuid;

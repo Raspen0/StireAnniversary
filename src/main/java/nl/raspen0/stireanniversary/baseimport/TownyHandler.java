@@ -28,7 +28,7 @@ public class TownyHandler extends BaseImportHandler {
                     plugin.getSALogger().log(Logger.LogType.ERROR, "Town does not have a spawn: " + town.getUUID().toString());
                     continue;
                 }
-                Base base = new Base(town.getSpawn(), town.getName(), BaseType.TOWN, anniversaryWorldID);
+                Base base = new Base(town.getSpawn(), town.getName(), BaseType.TOWN, -1, anniversaryWorldID);
 
                 for (Resident resident : town.getResidents()) {
                     UUID uuid;

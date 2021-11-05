@@ -1,6 +1,7 @@
 package nl.raspen0.stireanniversary;
 
 import net.ess3.api.events.UserBalanceUpdateEvent;
+import nl.raspen0.stiretweaks.language.Language;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,7 +28,10 @@ public class AnniversaryWorldListener implements Listener {
 
     @EventHandler
     private void storageClick(InventoryClickEvent event){
-        System.out.println("Storage click.");
+        if(plugin.debugLoggingEnabled()){
+            plugin.getSALogger().log(Logger.LogType.DEBUG, "Storage click: " +
+                    (event.getClickedInventory() == null ? "null" : event.getClickedInventory().getType())  + ".");
+        }
         if(event.getClickedInventory() == null || event.getCurrentItem() == null){
             return;
         }
@@ -40,19 +44,30 @@ public class AnniversaryWorldListener implements Listener {
             return;
         }
 
-        if(event.getClickedInventory().getType().equals(InventoryType.PLAYER)){
+        if(event.getClickedInventory().getType().equals(InventoryType.WORKBENCH)){
             return;
         }
 
-        switch (event.getCurrentItem().getType()){
-            case WRITTEN_BOOK, WRITABLE_BOOK, FILLED_MAP -> event.getWhoClicked().setItemOnCursor(event.getCurrentItem().clone());
-            default -> event.setCancelled(true);
+        if(event.getClickedInventory().getType().equals(InventoryType.PLAYER)){
+            switch (event.getClick()) {
+                case DROP, LEFT, RIGHT, MIDDLE, NUMBER_KEY -> {}
+                default -> {
+                    if (!event.getInventory().getType().equals(InventoryType.PLAYER) && !event.getInventory().getType().equals(InventoryType.CRAFTING)) {
+                        event.setCancelled(true);
+                    }
+                }
+            }
+        } else {
+            event.setCancelled(true);
+            event.getWhoClicked().setItemOnCursor(event.getCurrentItem().clone());
         }
     }
 
     @EventHandler
     private void storageDrag(InventoryDragEvent event){
-        System.out.println("Storage drag.");
+        if(plugin.debugLoggingEnabled()){
+            plugin.getSALogger().log(Logger.LogType.DEBUG, "Storage drag: " + event.getInventory().getType()  + ".");
+        }
         if(!playerSet.contains(event.getWhoClicked().getUniqueId())){
             return;
         }
@@ -61,8 +76,15 @@ public class AnniversaryWorldListener implements Listener {
             return;
         }
 
-        if(!event.getInventory().getType().equals(InventoryType.PLAYER)){
-            event.setCancelled(true);
+        if(event.getInventory().getType().equals(InventoryType.WORKBENCH)){
+            return;
+        }
+
+        for(int slot : event.getRawSlots()){
+            if(slot < 54){
+                event.setCancelled(true);
+                return;
+            }
         }
     }
 
@@ -81,6 +103,10 @@ public class AnniversaryWorldListener implements Listener {
                 " (New world: " + event.getPlayer().getWorld().getName() + ").");
         if(plugin.isAnniversaryWorld(event.getPlayer().getWorld().getName())){
             plugin.getSALogger().log(Logger.LogType.DEBUG, "Is anniversary world.");
+            if(!plugin.getAnniversaryWorldID(event.getFrom().getName()).equals(plugin.getAnniversaryWorldID(event.getPlayer().getWorld().getName()))){
+                Language language = LanguageHandler.getLanguage(event.getPlayer().getUniqueId());
+                event.getPlayer().sendMessage(StringList.TELEPORT_RETURN_GLOBAL_SPAWN.get(language));
+            }
             addPlayer(event.getPlayer().getUniqueId());
         } else {
             plugin.getSALogger().log(Logger.LogType.DEBUG, "Is not anniversary world.");

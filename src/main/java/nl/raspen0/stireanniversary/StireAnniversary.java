@@ -1,8 +1,7 @@
 package nl.raspen0.stireanniversary;
 
-import nl.raspen0.stireanniversary.commands.HomeCommand;
-import nl.raspen0.stireanniversary.commands.ImportCommand;
-import nl.raspen0.stireanniversary.commands.TeleportCommand;
+import nl.raspen0.stireanniversary.commands.*;
+import nl.raspen0.stireanniversary.commands.replacements.*;
 import nl.raspen0.stireanniversary.sql.SQLHandler;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -11,6 +10,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.*;
 
 public final class StireAnniversary extends JavaPlugin {
+
+    private static StireAnniversary instance;
+
+    public StireAnniversary(){
+        instance = this;
+    }
 
     private Logger logger;
     //Worldname, AnniversaryID
@@ -21,6 +26,11 @@ public final class StireAnniversary extends JavaPlugin {
     private boolean debugLogging;
 
     private SQLHandler sqlHandler;
+    private AnniversaryWorldListener worldListener;
+
+    public static StireAnniversary getInstance(){
+        return instance;
+    }
 
     @Override
     public void onEnable() {
@@ -32,10 +42,19 @@ public final class StireAnniversary extends JavaPlugin {
         logger = new Logger(this, debugLogging);
         sqlHandler = new SQLHandler(this);
         loadAnniversaryWorldList();
+        getCommand("sa_reload").setExecutor(new ReloadCommand(this));
+        getCommand("sa_spawn").setExecutor(new SpawnCommand(this));
+
+        getCommand("island").setExecutor(new IslandCommand());
+        getCommand("enmessage").setExecutor(new LanguageCommand());
+        getCommand("survey").setExecutor(new SurveyCommand());
+        getCommand("ar").setExecutor(new RankCommand());
+        getCommand("calladmin").setExecutor(new CallAdminCommand());
+        getCommand("pa").setExecutor(new PACommand());
 
         if(getConfig().getBoolean("teleportCommands", false)){
             loadBases();
-            AnniversaryWorldListener worldListener = new AnniversaryWorldListener(this);
+            worldListener = new AnniversaryWorldListener(this);
             getServer().getPluginManager().registerEvents(worldListener,  this);
 
             //Is plugin was enabled or reloaded using PlugMan.
@@ -96,36 +115,68 @@ public final class StireAnniversary extends JavaPlugin {
     }
 
     public Base getBase(UUID uuid, World world, BaseType baseType){
+        for(int i : playerMap.get(uuid)){
+            Base base = baseMap.get(i);
+            System.out.println("Base: "  + base.getBaseID() + ", " +  base.getBaseType().toString() + ", " + base.getAnniversaryWorldID() + ", " + base.getLocation().toString());
+        }
+        //Retrieve the bases of the player.
+        //Set containing baseIDs.
+
+        //If the current world is not an anniversary world.
+        if(!isAnniversaryWorld(world.getName())){
+            getSALogger().log(Logger.LogType.DEBUG, world.getName() + " is not a anniversary world.");
+            return null;
+        }
+
+        //Get the Anniversary ID associated with the current world.
+        int id = getAnniversaryWorldID(world.getName());
+
         Set<Integer> baseSet = playerMap.get(uuid);
         for(int i : baseSet){
+            //Trying to get base which is not loaded.
+            if(!baseMap.containsKey(i)){
+                getSALogger().log(Logger.LogType.ERROR, "Trying to load incorrectly loaded base: " + i);
+                continue;
+            }
+            //Get Base.
             Base base = baseMap.get(i);
             System.out.println(base.getLocation());
-
+            System.out.println(base.getBaseType().toString());
+            //If the base type is not the one requested, skip it.
             if(!base.getBaseType().equals(baseType)){
                 getSALogger().log(Logger.LogType.DEBUG, "Incorrect base type.");
                 continue;
             }
 
-            if(!isAnniversaryWorld(world.getName())){
-                getSALogger().log(Logger.LogType.DEBUG, world.getName() + " is not a anniversary world.");
+            if(getAnniversaryWorldID(base.getLocation().getWorld().getName()) != id){
+                getSALogger().log(Logger.LogType.DEBUG, "Incorrect world.");
                 continue;
             }
 
-            int id = getAnniversaryWorldID(world.getName());
-
-            for(Map.Entry<String, Integer> e : anniversaryWorlds.entrySet()){
-                if(e.getValue() != id){
-                    getSALogger().log(Logger.LogType.DEBUG, "ID mismatch: " + id + " - " + e.getValue());
-                    continue;
-                }
-                if(!base.getLocation().getWorld().getName().equals(world.getName())){
-                    getSALogger().log(Logger.LogType.DEBUG, "World mismatch: " + base.getLocation().getWorld().getName() + " - " + world.getName());
-                    continue;
-                }
-                return base;
-            }
+            return base;
         }
         return null;
+    }
+
+    public void reload(){
+        anniversaryWorlds.clear();
+        baseMap.clear();
+        playerMap.clear();
+        sqlHandler.closeConnection();
+
+        reloadConfig();
+        logger = new Logger(this, getConfig().getBoolean("debug.logging"));
+        sqlHandler = new SQLHandler(this);
+        loadAnniversaryWorldList();
+
+        if(worldListener != null){
+            loadBases();
+            for(Player p : getServer().getOnlinePlayers()){
+                worldListener.playerJoin(p);
+            }
+        }
+
+
     }
 
     public boolean isAnniversaryWorld(String world){

@@ -69,7 +69,7 @@ public class EssentialsHandler extends BaseImportHandler {
                 plugin.getSALogger().log(Logger.LogType.DEBUG, "Is in spawn region.");
                 continue;
             }
-            Base base = new Base(loc, BaseType.ESSENTIALS, anniversaryWorldID);
+            Base base = new Base(loc, BaseType.ESSENTIALS, -1, anniversaryWorldID);
             base.addMember(UUID.fromString(file.getName().substring(0, file.getName().length() - 4)));
             baseSet.add(base);
         }

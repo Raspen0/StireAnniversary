@@ -52,6 +52,7 @@ public class TeleportHandler {
 
 
     private void sendTeleportMessage(Player target, Language lang, Base base){
+        target.sendMessage(StringList.TELEPORT_RETURN_LOCAL_SPAWN.get(lang));
         if(base.getBaseType() != BaseType.FACTION && base.getBaseType() != BaseType.TOWN){
             return;
         }

@@ -1,3 +1,4 @@
+#Requires restart of plugin.
 importCommand: true
 teleportCommands: false
 
@@ -17,7 +18,6 @@ SQL:
   minimumConnections: 1
   maximumConnections: 2
   connectionTimeout: 10000
-
 
 debug:
   logging: false

@@ -12,24 +12,31 @@ public class Base {
     private final BaseType baseType;
     private final String name;
     private final int anniversaryWorldID;
+    private final int baseID;
     private Set<UUID> members = new HashSet<>();
 
-    public Base(Location location, BaseType baseType, int anniversaryWorldID){
+    public Base(Location location, BaseType baseType, int baseID, int anniversaryWorldID){
         this.location = location;
         this.name = null;
         this.baseType = baseType;
+        this.baseID = baseID;
         this.anniversaryWorldID = anniversaryWorldID;
     }
 
-    public Base(Location location, String name, BaseType baseType, int anniversaryWorldID){
+    public Base(Location location, String name, BaseType baseType, int baseID, int anniversaryWorldID){
         this.location = location;
         this.name = name;
         this.baseType = baseType;
+        this.baseID = baseID;
         this.anniversaryWorldID = anniversaryWorldID;
     }
 
     public Location getLocation() {
         return location;
+    }
+
+    public int getBaseID() {
+        return baseID;
     }
 
     public BaseType getBaseType() {

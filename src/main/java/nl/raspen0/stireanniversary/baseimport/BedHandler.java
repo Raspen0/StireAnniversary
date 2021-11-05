@@ -32,7 +32,7 @@ public class BedHandler extends BaseImportHandler{
                 continue;
             }
 
-            Base base = new Base(bedLocation, BaseType.BED, anniversaryWorldID);
+            Base base = new Base(bedLocation, BaseType.BED, -1, anniversaryWorldID);
             base.addMember(p.getUniqueId());
             baseSet.add(base);
         }

@@ -17,3 +17,28 @@ commands:
   sa_import:
     description: Imports base data from other plugins.
     usage: /sa_import
+  sa_reload:
+    description: Reloads data of the plugin.
+    usage: /sa_reload
+  sa_spawn:
+    description: Returns the sender to the spawn location of the current Anniversary world.
+    usage: /sa_reload
+  island:
+    description: Replacement command for the original IslandWorld command.
+    usage: /island
+  survey:
+    description: Replacement command for the original BetterAlias command.
+    usage: /survey
+  enmessage:
+    description: Replacement command for the original BetterAlias command.
+    aliases: ["nlmessage"]
+    usage: /enmessage
+  ar:
+    description: Replacement command for the original AutoRank command.
+    usage: /ar
+  calladmin:
+    description: Replacement command for the original JSONAPI command.
+    usage: /calladmin
+  pa:
+    description: Replacement command for the original PvPArena command.
+    usage: /pa
