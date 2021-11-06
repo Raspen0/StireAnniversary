@@ -45,3 +45,6 @@ commands:
   shop:
     description: Replacement command for the original BossShop command.
     usage: /shop
+  sa_messagespawn:
+    description: Sends a message how to return to spawn.
+    usage: /sa_messagespawn <player>

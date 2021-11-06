@@ -43,7 +43,6 @@ public class FactionsHandler extends BaseImportHandler {
                             continue;
                         }
                         Location blockLoc = ps.asBukkitChunk().getBlock(0, 0, 0).getLocation();
-                        System.out.println(blockLoc);
                         factionSpawnLocation = blockLoc.getWorld().getHighestBlockAt(blockLoc).getLocation();
                     } catch (Exception e) {
                         continue;

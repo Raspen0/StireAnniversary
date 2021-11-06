@@ -44,6 +44,7 @@ public final class StireAnniversary extends JavaPlugin {
         loadAnniversaryWorldList();
         getCommand("sa_reload").setExecutor(new ReloadCommand(this));
         getCommand("sa_spawn").setExecutor(new SpawnCommand(this));
+        getCommand("sa_messagespawn").setExecutor(new SpawnMessageCommand());
 
         getCommand("island").setExecutor(new IslandCommand());
         getCommand("enmessage").setExecutor(new LanguageCommand());
@@ -116,10 +117,6 @@ public final class StireAnniversary extends JavaPlugin {
     }
 
     public Base getBase(UUID uuid, World world, BaseType baseType){
-        for(int i : playerMap.get(uuid)){
-            Base base = baseMap.get(i);
-            System.out.println("Base: "  + base.getBaseID() + ", " +  base.getBaseType().toString() + ", " + base.getAnniversaryWorldID() + ", " + base.getLocation().toString());
-        }
         //Retrieve the bases of the player.
         //Set containing baseIDs.
 
@@ -141,8 +138,6 @@ public final class StireAnniversary extends JavaPlugin {
             }
             //Get Base.
             Base base = baseMap.get(i);
-            System.out.println(base.getLocation());
-            System.out.println(base.getBaseType().toString());
             //If the base type is not the one requested, skip it.
             if(!base.getBaseType().equals(baseType)){
                 getSALogger().log(Logger.LogType.DEBUG, "Incorrect base type.");
@@ -185,6 +180,9 @@ public final class StireAnniversary extends JavaPlugin {
     }
 
     public Integer getAnniversaryWorldID(String world){
+        if(!anniversaryWorlds.containsKey(world)){
+            return -1;
+        }
         return anniversaryWorlds.get(world);
     }
 

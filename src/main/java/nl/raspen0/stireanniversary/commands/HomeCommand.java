@@ -28,8 +28,6 @@ public class HomeCommand implements TabExecutor {
         //sa_home <type> <@player>
 
         Player target;
-        System.out.println("Test:");
-        System.out.println(args.length);
 
         if(args.length < 2){
             if (!(sender instanceof Player player)) {

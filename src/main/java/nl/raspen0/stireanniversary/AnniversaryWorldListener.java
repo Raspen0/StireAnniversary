@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.world.ChunkPopulateEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -130,10 +130,12 @@ public class AnniversaryWorldListener implements Listener {
     }
 
     @EventHandler
-    private void chunkGenerate(ChunkPopulateEvent event){
-        if(plugin.isAnniversaryWorld(event.getWorld().getName())){
-            plugin.getSALogger().log(Logger.LogType.FULL, "Generating new chunk in world: " + event.getWorld().getName() +
-                    " at " + event.getChunk().getX() + ", " + event.getChunk().getZ());
+    private void chunkGenerate(ChunkLoadEvent event){
+        if(event.isNewChunk()){
+            if(plugin.isAnniversaryWorld(event.getWorld().getName())){
+                plugin.getSALogger().log(Logger.LogType.FILE, "Generating new chunk in world: " + event.getWorld().getName() +
+                        " at " + event.getChunk().getX() + ", " + event.getChunk().getZ());
+            }
         }
     }
 
