@@ -11,6 +11,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.world.ChunkPopulateEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -126,6 +127,14 @@ public class AnniversaryWorldListener implements Listener {
             addPlayer(player.getUniqueId());
         }
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> plugin.loadPlayer(player.getUniqueId()));
+    }
+
+    @EventHandler
+    private void chunkGenerate(ChunkPopulateEvent event){
+        if(plugin.isAnniversaryWorld(event.getWorld().getName())){
+            plugin.getSALogger().log(Logger.LogType.FULL, "Generating new chunk in world: " + event.getWorld().getName() +
+                    " at " + event.getChunk().getX() + ", " + event.getChunk().getZ());
+        }
     }
 
     @EventHandler

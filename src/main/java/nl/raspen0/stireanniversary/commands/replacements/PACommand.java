@@ -15,12 +15,3 @@ public class PACommand implements CommandExecutor {
         return true;
     }
 }
-
-
-
-//TODO:
-//shop command
-//Add name for warp.
-//Fix NPC shops.
-//Low priority, will put NPC's there with a placeholder command.
-//Block /ma j in anniversary worlds with custom message.
