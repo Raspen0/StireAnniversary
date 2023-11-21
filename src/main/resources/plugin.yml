@@ -4,9 +4,10 @@ main: nl.raspen0.stireanniversary.StireAnniversary
 api-version: 1.17
 authors: [ raspen0 ]
 description: Plugin that manages the features for the 10th anniversary of Stirebuild.
+depend:
+  - StireTweaks
 softdepend:
   - Essentials
-  - StireTweaks
 commands:
   sa_home:
     description: Teleports player to their base in the current anniversary world.

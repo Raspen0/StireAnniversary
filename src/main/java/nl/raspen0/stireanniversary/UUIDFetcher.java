@@ -7,16 +7,6 @@ import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.util.UUID;
 
-/*
-Uncomment this if you want the helper method for BungeeCord:
-import net.md_5.bungee.api.connection.ProxiedPlayer;
-*/
-
-/*
-Uncomment this if you want the helper method for Bukkit/Spigot:
-import org.bukkit.entity.Player;
-*/
-
 /**
  * Helper-class for getting UUIDs of players.
  */
@@ -28,32 +18,6 @@ public final class UUIDFetcher {
     private UUIDFetcher() {
         throw new UnsupportedOperationException();
     }
-
-    /**
-     * Returns the UUID of the searched player.
-     *
-     * @param player The player.
-     * @return The UUID of the given player.
-     */
-    //Uncomment this if you want the helper method for BungeeCord:
-    /*
-    public static UUID getUUID(ProxiedPlayer player) {
-        return getUUID(player.getName());
-    }
-    */
-
-    /**
-     * Returns the UUID of the searched player.
-     *
-     * @param player The player.
-     * @return The UUID of the given player.
-     */
-    //Uncomment this if you want the helper method for Bukkit/Spigot:
-    /*
-    public static UUID getUUID(Player player) {
-        return getUUID(player.getName());
-    }
-    */
 
     /**
      * Returns the UUID of the searched player.

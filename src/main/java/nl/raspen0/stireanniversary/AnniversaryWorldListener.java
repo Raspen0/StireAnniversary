@@ -27,6 +27,8 @@ public class AnniversaryWorldListener implements Listener {
         playerSet = new HashSet<>();
     }
 
+    //Negate changes in anniversary world containers.
+    //Clicking on container items will clone them instead of changing the container.
     @EventHandler
     private void storageClick(InventoryClickEvent event){
         if(plugin.debugLoggingEnabled()){
@@ -64,6 +66,7 @@ public class AnniversaryWorldListener implements Listener {
         }
     }
 
+    //Stop inventory drag for containers in anniversary worlds.
     @EventHandler
     private void storageDrag(InventoryDragEvent event){
         if(plugin.debugLoggingEnabled()){
@@ -98,6 +101,8 @@ public class AnniversaryWorldListener implements Listener {
         }
     }
 
+    //Add player to the playerSet if they enter an anniversary world.
+    //Otherwise remove the player from the playerSet.
     @EventHandler
     private void playerChangeWorld(PlayerChangedWorldEvent event){
         plugin.getSALogger().log(Logger.LogType.DEBUG, "Worldchange event for " + event.getPlayer().getName() +
@@ -120,6 +125,10 @@ public class AnniversaryWorldListener implements Listener {
         playerJoin(event.getPlayer());
     }
 
+    /**
+     * Checks login location and load player data.
+     * If the location is an anniversary world then add the player to the playerSet.
+     */
     public void playerJoin(Player player){
         plugin.getSALogger().log(Logger.LogType.DEBUG, "Loading playerdata for " + player.getName());
         if(plugin.isAnniversaryWorld(player.getWorld().getName())){
@@ -129,6 +138,8 @@ public class AnniversaryWorldListener implements Listener {
         plugin.getServer().getScheduler().runTaskAsynchronously(plugin, () -> plugin.loadPlayer(player.getUniqueId()));
     }
 
+    //Log if a chunk is generated in an anniversary world.
+    //This should not happen due to world borders.
     @EventHandler
     private void chunkGenerate(ChunkLoadEvent event){
         if(event.isNewChunk()){
@@ -139,15 +150,22 @@ public class AnniversaryWorldListener implements Listener {
         }
     }
 
+    //Remove the player from the playerSet when they leave.
     @EventHandler
     private void playerLeave(PlayerQuitEvent event){
         playerSet.remove(event.getPlayer().getUniqueId());
     }
 
+    /**
+     * Add the player to the playerSet.
+     */
     private void addPlayer(UUID uuid){
         playerSet.add(uuid);
     }
 
+    /**
+     * Remove the player from the playerSet.
+     */
     private void removePlayer(UUID uuid){
         playerSet.remove(uuid);
     }

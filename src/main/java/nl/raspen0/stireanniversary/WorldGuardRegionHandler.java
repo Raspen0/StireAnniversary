@@ -11,6 +11,14 @@ import org.bukkit.Location;
 
 public class WorldGuardRegionHandler {
 
+    /**
+     * Checks if the give location is inside a spawn region.
+     *
+     * @param location The location to be checked.
+     * @param plugin The plugin instance.
+     *
+     * @return True if the give location is in a spawn region, otherwise false.
+     */
     public static boolean isInWorldGuardRegion(Location location, StireAnniversary plugin){
         if(!Bukkit.getServer().getPluginManager().isPluginEnabled("WorldGuard")){
             plugin.getSALogger().log(Logger.LogType.WARNING, "WorldGuard not found, skipping check.");

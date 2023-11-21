@@ -11,12 +11,6 @@ import java.util.*;
 
 public final class StireAnniversary extends JavaPlugin {
 
-    private static StireAnniversary instance;
-
-    public StireAnniversary(){
-        instance = this;
-    }
-
     private Logger logger;
     //Worldname, AnniversaryID
     private Map<String, Integer> anniversaryWorlds;
@@ -27,10 +21,6 @@ public final class StireAnniversary extends JavaPlugin {
 
     private SQLHandler sqlHandler;
     private AnniversaryWorldListener worldListener;
-
-    public static StireAnniversary getInstance(){
-        return instance;
-    }
 
     @Override
     public void onEnable() {
@@ -83,8 +73,6 @@ public final class StireAnniversary extends JavaPlugin {
             getCommand("sa_import").setExecutor(importCommand);
             getCommand("sa_import").setTabCompleter(importCommand);
         }
-
-
     }
 
     private void loadAnniversaryWorldList(){
@@ -93,7 +81,6 @@ public final class StireAnniversary extends JavaPlugin {
                 getSALogger().log(Logger.LogType.CONSOLE, "Enabling Anniversary mode for world: " + world + ", ID: " + key);
                 anniversaryWorlds.put(world, Integer.parseInt(key));
             }
-
         }
     }
 
